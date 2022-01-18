@@ -8,6 +8,13 @@
 echo child pid: $$
 echo dir: $(pwd)
 
+git pull --recurse-submodules
+
+$(git diff --submodule=diff HEAD HEAD~1 | grep )
+
+
+
+
 if [ $# -eq 0 ]; then
 	echo 'files: (discovered)'
 	generator () {
