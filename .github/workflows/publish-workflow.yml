@@ -21,6 +21,11 @@ jobs:
             echo "apikey = $APIKEY" >>update/apikey.ini
       - name: Run the update script
         run: |
+            # Retrieve the changed .md files in root and submodules
+            file_diff=$(git diff --submodule=diff HEAD HEAD~1 | grep "+++ .*.md\|--- a\/tutorials\/.*.md" | sed 's/[+-]* .//' | tr '\n' ' ')
+
+            echo "Updating Files: ${file_diff}"
+
             cd /tmp/connectbook
-            ./update/update.sh
+            ./update/update.sh ${file_diff}
 

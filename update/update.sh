@@ -9,10 +9,8 @@ echo child pid: $$
 echo dir: $(pwd)
 
 if [ $# -eq 0 ]; then
-	echo 'files: (discovered)'
-	generator () {
-		find . -name \*.md -print
-	}
+  echo "No Files to Change: Skipping Update"
+	exit 0
 else
 	echo files: "$@"
 	generator () {
@@ -24,7 +22,6 @@ fi
 
 git checkout master
 git pull origin master
-git submodule foreach git pull origin master
 
 generator "$@" | while read file; do
 	dir=$(dirname "$file")
